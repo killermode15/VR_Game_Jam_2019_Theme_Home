@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(OutlineScript))]
 public class GazeObject : MonoBehaviour
 {
     [Header("Events")]
@@ -12,17 +13,19 @@ public class GazeObject : MonoBehaviour
     public UnityEvent UE_OnGazeExit;
 
     [Header("Gaze Properties")]
-    public float GazeTime;
-    public Material OutlineMaterial;
+    public float MaxGazeTime;
 
     public bool IsGazingFinished => isGazing && currentGazeTime <= 0;
+    public float GazePercent => currentGazeTime / MaxGazeTime;
 
+    private OutlineScript outline;
     private float currentGazeTime;
     private bool isGazing;
 
     private void Start()
     {
-        currentGazeTime = GazeTime;
+        currentGazeTime = MaxGazeTime;
+        outline = GetComponent<OutlineScript>();
     }
 
     private void Update()
@@ -33,32 +36,26 @@ public class GazeObject : MonoBehaviour
         }
         else
         {
-            if(currentGazeTime < GazeTime)
+            if (currentGazeTime < MaxGazeTime)
             {
-                UpdateOutlineAlpha();
                 currentGazeTime += Time.deltaTime;
 
-                if(currentGazeTime > GazeTime)
+                if (currentGazeTime > MaxGazeTime)
                 {
-                    currentGazeTime = GazeTime;
+                    currentGazeTime = MaxGazeTime;
                 }
             }
         }
     }
 
-    private void UpdateOutlineAlpha()
-    {
-        Color currColor = GetComponent<Renderer>().material.GetColor("_OutlineColor");
-        currColor.a = 1 - (currentGazeTime / GazeTime);
-        GetComponent<Renderer>().material.SetColor("_OutlineColor", currColor);
-    }
-
+    [ContextMenu("TEST")]
     public void OnGazeStart()
     {
         if (!isGazing)
         {
             isGazing = true;
             UE_OnGazeStart.Invoke();
+            outline.GazedAt();
             Debug.Log("Start");
         }
     }
@@ -67,7 +64,7 @@ public class GazeObject : MonoBehaviour
     {
         currentGazeTime -= Time.deltaTime;
 
-        UpdateOutlineAlpha();
+        outline.percent = GazePercent;
 
         UE_OnGazeUpdate.Invoke();
         if (currentGazeTime <= 0)
@@ -83,6 +80,7 @@ public class GazeObject : MonoBehaviour
         {
             isGazing = false;
             UE_OnGazeEnd.Invoke();
+            outline.OnActivate();
             Debug.Log("End");
         }
     }
@@ -91,6 +89,7 @@ public class GazeObject : MonoBehaviour
     {
         isGazing = false;
         UE_OnGazeExit.Invoke();
+        outline.NotGazedAt();
         Debug.Log("Exit");
     }
 }
