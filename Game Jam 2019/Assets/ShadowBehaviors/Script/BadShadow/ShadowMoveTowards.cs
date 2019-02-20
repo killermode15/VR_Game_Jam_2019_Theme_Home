@@ -38,7 +38,7 @@ public class ShadowMoveTowards : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position,targetPos,Time.deltaTime * speed * Random.Range(0.5f,1.5f));
             transform.LookAt(targetTrans);
 
-            if ( ( targetTrans.position - transform.position ).magnitude <= 0.1f ) {
+            if ( ( targetTrans.position - transform.position ).magnitude <= 0.3f ) {
                 ReachedPlayer();
             }
         }

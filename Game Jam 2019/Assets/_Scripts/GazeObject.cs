@@ -22,6 +22,7 @@ public class GazeObject : MonoBehaviour
     public bool IsGazingFinished => isGazing && currentGazeTime <= 0;
     public float GazePercent => currentGazeTime / MaxGazeTime;
 
+    // Is this gaze object activated
     public bool isEnded = false;
 
     private float currentGazeTime;
