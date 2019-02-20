@@ -33,7 +33,10 @@ public class ShadowMoveTowards : MonoBehaviour
     void Update()
     {
         if ( isMovingTowards ) {
-            transform.position = Vector3.MoveTowards(transform.position,targetTrans.position,Time.deltaTime * speed * Random.Range(0.5f,1.5f));
+            Vector3 targetPos = new Vector3(targetTrans.position.x, transform.position.y, targetTrans.position.z);
+
+            transform.position = Vector3.MoveTowards(transform.position,targetPos,Time.deltaTime * speed * Random.Range(0.5f,1.5f));
+            transform.LookAt(targetTrans);
 
             if ( ( targetTrans.position - transform.position ).magnitude <= 0.1f ) {
                 ReachedPlayer();
@@ -41,7 +44,7 @@ public class ShadowMoveTowards : MonoBehaviour
         }
         else {
             transform.position = Vector3.MoveTowards(transform.position,curBackOffPos,Time.deltaTime * speed * Random.Range(1.5f,2.0f));
-
+            transform.LookAt(curBackOffPos);
             if (( curBackOffPos - transform.position).magnitude <= 0.1f ) {
                 MoveTowardsAgain();
             }

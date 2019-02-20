@@ -387,27 +387,7 @@ ModelImporter:
     4300098: polySurface292
     4300100: polySurface293
     4300102: polySurface187
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Books_3
-    second: {fileID: 2100000, guid: f2bbc831462f63c4eb18d6f261d8f772, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Books_4
-    second: {fileID: 2100000, guid: 73e2c69df5b0eca449d594187f898c1d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bookshelf
-    second: {fileID: 2100000, guid: 9e6eaa19aa99ea14a8ea0f13350098f1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Pages_Book
-    second: {fileID: 2100000, guid: 9202f516a4aecf14099acc5a132bbc4d, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 1
@@ -441,7 +421,6 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -466,9 +445,6 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -483,6 +459,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

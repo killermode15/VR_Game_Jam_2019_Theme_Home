@@ -7,7 +7,7 @@ public class Gaze : MonoBehaviour
     public LayerMask GazeLayer;
     public Transform Eye;
 
-    private GazeObject gazedObject;
+    public GazeObject gazedObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -37,21 +37,35 @@ public class Gaze : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, GazeLayer))
         {
-            gazedObject = hit.collider.GetComponent<GazeObject>();
-
+            // If there is no current gazed object, set gazed object to the hit
             if (!gazedObject)
-            {
-                return;
-            }
+                gazedObject = hit.collider.GetComponent<GazeObject>();
 
-            gazedObject.OnGazeStart();
+            // If there is previous gazed object
+            if (gazedObject)
+            {
+                // If the previous game object is not the same as the new hit
+                if (gazedObject != hit.collider.GetComponent<GazeObject>())
+                {
+                    gazedObject.OnGazeExit();
+                    gazedObject = hit.collider.GetComponent<GazeObject>();
+                    gazedObject.OnGazeStart();
+                }
+                else // If the previous game object is the same as the new hit
+                {
+                    gazedObject.OnGazeStart();
+                }
+            }
+            
         }
-        else
+
+        // If not gazing at anything
+        if (!Physics.Raycast(ray, out hit, Mathf.Infinity, GazeLayer))
         {
             if (gazedObject)
             {
                 gazedObject.OnGazeExit();
-                gazedObject = null;
+                //gazedObject = null;
             }
         }
 

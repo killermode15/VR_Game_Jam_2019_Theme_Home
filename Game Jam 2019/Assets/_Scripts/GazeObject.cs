@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(OutlineScript))]
+//[RequireComponent(typeof(OutlineScript))]
 public class GazeObject : MonoBehaviour
 {
+    [Header("Scripts")]
+    public List<EmissionScript> emissionScripts;
+    public List<OutlineScript> outlineScripts;
+
     [Header("Events")]
     public UnityEvent UE_OnGazeStart;
     public UnityEvent UE_OnGazeUpdate;
@@ -18,14 +22,15 @@ public class GazeObject : MonoBehaviour
     public bool IsGazingFinished => isGazing && currentGazeTime <= 0;
     public float GazePercent => currentGazeTime / MaxGazeTime;
 
-    private OutlineScript outline;
+    public bool isEnded = false;
+
     private float currentGazeTime;
     private bool isGazing;
 
     private void Start()
     {
         currentGazeTime = MaxGazeTime;
-        outline = GetComponent<OutlineScript>();
+
     }
 
     private void Update()
@@ -46,6 +51,16 @@ public class GazeObject : MonoBehaviour
                 }
             }
         }
+
+        foreach (OutlineScript script in outlineScripts)
+        {
+            script.percent = 1.0f - GazePercent;
+        }
+
+        foreach (EmissionScript script in emissionScripts)
+        {
+            script.percent = 1.0f - GazePercent;
+        }
     }
 
     [ContextMenu("TEST")]
@@ -55,7 +70,16 @@ public class GazeObject : MonoBehaviour
         {
             isGazing = true;
             UE_OnGazeStart.Invoke();
-            outline.GazedAt();
+
+            foreach (OutlineScript script in outlineScripts)
+            {
+                script.GazedAt();
+            }
+
+            foreach (EmissionScript script in emissionScripts)
+            {
+                script.GazedAt();
+            }
             Debug.Log("Start");
         }
     }
@@ -64,7 +88,15 @@ public class GazeObject : MonoBehaviour
     {
         currentGazeTime -= Time.deltaTime;
 
-        outline.percent = GazePercent;
+        foreach (OutlineScript script in outlineScripts)
+        {
+            script.percent = 1.0f - GazePercent;
+        }
+
+        foreach (EmissionScript script in emissionScripts)
+        {
+            script.percent = 1.0f - GazePercent;
+        }
 
         UE_OnGazeUpdate.Invoke();
         if (currentGazeTime <= 0)
@@ -79,8 +111,18 @@ public class GazeObject : MonoBehaviour
         if (isGazing)
         {
             isGazing = false;
+            isEnded = true;
             UE_OnGazeEnd.Invoke();
-            outline.OnActivate();
+
+            foreach (OutlineScript script in outlineScripts)
+            {
+                script.OnActivate();
+            }
+
+            foreach (EmissionScript script in emissionScripts)
+            {
+                script.OnActivate();
+            }
             Debug.Log("End");
         }
     }
@@ -89,7 +131,16 @@ public class GazeObject : MonoBehaviour
     {
         isGazing = false;
         UE_OnGazeExit.Invoke();
-        outline.NotGazedAt();
+
+        foreach (OutlineScript script in outlineScripts)
+        {
+            script.NotGazedAt();
+        }
+
+        foreach (EmissionScript script in emissionScripts)
+        {
+            script.NotGazedAt();
+        }
         Debug.Log("Exit");
     }
 }
