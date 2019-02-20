@@ -13,6 +13,7 @@ TagManager:
   - Saucers
   - Torso
   - Head
+  - GazeObject
   layers:
   - Default
   - TransparentFX
