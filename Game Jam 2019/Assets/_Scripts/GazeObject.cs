@@ -17,7 +17,7 @@ public class GazeObject : MonoBehaviour
     public UnityEvent UE_OnGazeExit;
 
     [Header("Gaze Properties")]
-    public float MaxGazeTime;
+    public float MaxGazeTime = 5;
 
     public bool IsGazingFinished => isGazing && currentGazeTime <= 0;
     public float GazePercent => currentGazeTime / MaxGazeTime;
@@ -30,6 +30,7 @@ public class GazeObject : MonoBehaviour
 
     private void Start()
     {
+        MaxGazeTime = 5;
         currentGazeTime = MaxGazeTime;
 
     }
@@ -81,7 +82,7 @@ public class GazeObject : MonoBehaviour
             {
                 script.GazedAt();
             }
-            Debug.Log("Start");
+            //Debug.Log("Start");
         }
     }
 
@@ -124,7 +125,7 @@ public class GazeObject : MonoBehaviour
             {
                 script.OnActivate();
             }
-            Debug.Log("End");
+            //Debug.Log("End");
         }
     }
 
