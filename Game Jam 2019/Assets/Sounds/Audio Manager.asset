@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a94ff8f74f3ed444a7689f6a5734785, type: 3}
+  m_Name: Audio Manager
+  m_EditorClassIdentifier: 
+  AudioData:
+  - Identifier: SpiritFootstep
+    UseSnapshot: 0
+    AudioClip: {fileID: 8300000, guid: 457f9ce686a49194a8ebb7b1fe2eb130, type: 3}
+    MixerSnapshot: {fileID: 0}
+  - Identifier: 
+    UseSnapshot: 0
+    AudioClip: {fileID: 0}
+    MixerSnapshot: {fileID: 0}

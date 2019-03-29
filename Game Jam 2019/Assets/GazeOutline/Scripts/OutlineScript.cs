@@ -111,6 +111,12 @@ public class OutlineScript : MonoBehaviour
         OnActivateEvent.Invoke();
     }
 
+    public void TurnOff()
+    {
+        outlineMaterial.SetColor("_OutlineColor", minColor);
+        outlineMaterial.SetFloat("_Thickness", minThickness);
+    }
+
     // Public Functions
     /// <summary>
     /// Call this once the player starts gazing on this object

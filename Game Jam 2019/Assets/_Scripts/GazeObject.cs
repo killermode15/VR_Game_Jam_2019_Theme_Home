@@ -22,6 +22,8 @@ public class GazeObject : MonoBehaviour
     public bool IsGazingFinished => isGazing && currentGazeTime <= 0;
     public float GazePercent => currentGazeTime / MaxGazeTime;
 
+    public GameObject pointLight;
+
     // Is this gaze object activated
     public bool isEnded = false;
 
@@ -32,7 +34,6 @@ public class GazeObject : MonoBehaviour
     {
         MaxGazeTime = 5;
         currentGazeTime = MaxGazeTime;
-
     }
 
     private void Update()
@@ -114,6 +115,8 @@ public class GazeObject : MonoBehaviour
         {
             isGazing = false;
             isEnded = true;
+            if(pointLight != null)
+                pointLight.SetActive(true);
             UE_OnGazeEnd.Invoke();
 
             foreach (OutlineScript script in outlineScripts)

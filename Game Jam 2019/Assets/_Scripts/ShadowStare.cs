@@ -10,17 +10,23 @@ public class ShadowStare : MonoBehaviour
     [SerializeField] private Transform wallOffset;
     [SerializeField] private float emergeSpeed;
 
+    public ExitGame exit;
+
     private void Update()
     {
         if(staringAtPlayer)
         {
             transform.position = Vector3.MoveTowards(transform.position, wallOffset.position, emergeSpeed * Time.deltaTime);
+
+            if ((wallOffset.position - transform.position).magnitude <= 0.3f)
+            {
+                exit.ExitTheGame();
+            }
         }
     }
 
     public void FacePlayer()
     {
-        print("POTATO POTATO");
         staringAtPlayer = true;
     }
 }

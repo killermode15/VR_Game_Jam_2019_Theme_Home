@@ -56,6 +56,11 @@ public class EmissionScript : MonoBehaviour
         OnActivateEvent.Invoke();
     }
 
+    public void TurnOff()
+    {
+        mat.SetColor("_EmissionColor", minColor * Mathf.LinearToGammaSpace(minEmit));
+    }
+
     // Public Functions
     /// <summary>
     /// Call this once the player starts gazing on this object
